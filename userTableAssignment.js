@@ -2,6 +2,7 @@
 
 const table = document.createElement('table');
 const tr = document.createElement('tr');
+table.appendChild(tr);
 
 const header = document.createElement('h2');
 header.innerHTML = 'User list';
@@ -22,10 +23,8 @@ fetch('https://jsonplaceholder.typicode.com/users').then(response => {
         th.innerHTML = `${el}`
         tr.appendChild(th);
     });
-    table.appendChild(tr);
     
     for (let i = 0; i <= users.length-1; i++) {
-
         users[i].address = `${users[i].address.city} ${users[i].address.suite}`;
 
         let tr = document.createElement('tr');
@@ -37,14 +36,13 @@ fetch('https://jsonplaceholder.typicode.com/users').then(response => {
             if (j == thList.length) {
                 td.innerHTML = 'x';
                 td.style = 'background-color: red; color: white; cursor: pointer;';
-                td.addEventListener('click', el => tr.remove())
+                td.addEventListener('click', () => tr.remove())
             }
             tr.appendChild(td);
         }
 
         table.appendChild(tr);   
     }
-
 }).catch(err => {
-    console.log(err);
+    throw new Error(err);
 });
